@@ -1,5 +1,6 @@
 #include "server_host.hpp"
 #include "query_controller.hpp"
+#include "response_headers_filter.hpp"
 #include "log.hpp"
 
 namespace msrv {
@@ -31,7 +32,7 @@ void ServerHost::reconfigure()
     auto filters = &config->filters;
 
     filters->add(std::make_unique<ExecuteHandlerFilter>());
-
+    filters->add(std::make_unique<ResponseHeadersFilter>());
     auto playerQueue = playerWorkQueue_.get();
 
     QueryController::defineRoutes(router, playerQueue, player_, &dispatcher_);

@@ -59,9 +59,8 @@ void QueryController::defineRoutes(
 
     routes.createWith([=](Request* request) { return new QueryController(request, player, dispatcher); });
     routes.useWorkQueue(workQueue);
-    routes.setPrefix("api/query");
 
-    routes.get("updates", &QueryController::getUpdates);
+    routes.get("foobar2000", &QueryController::getUpdates);
 }
 
 }

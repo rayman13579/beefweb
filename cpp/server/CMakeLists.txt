@@ -89,6 +89,7 @@ set(
     request.cpp request.hpp
     request_filter.cpp request_filter.hpp
     response.cpp response.hpp
+    response_headers_filter.cpp response_headers_filter.hpp
     response_sender.cpp response_sender.hpp
     router.cpp router.hpp
     server.cpp server.hpp
