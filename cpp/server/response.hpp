@@ -3,7 +3,6 @@
 #include "http.hpp"
 #include "json.hpp"
 #include "system.hpp"
-#include "file_system.hpp"
 
 #include <boost/thread/future.hpp>
 
@@ -43,7 +42,6 @@ public:
     static std::unique_ptr<SimpleResponse> custom(HttpStatus status);
     static std::unique_ptr<SimpleResponse> temporaryRedirect(std::string targetUrl);
     static std::unique_ptr<SimpleResponse> permanentRedirect(std::string targetUrl);
-    static std::unique_ptr<FileResponse> file(Path path, FileHandle handle, FileInfo fileInfo, std::string contentType);
     static std::unique_ptr<DataResponse> data(std::vector<uint8_t> data, std::string contentType);
     static std::unique_ptr<JsonResponse> json(Json value);
     static std::unique_ptr<EventStreamResponse> eventStream(EventStreamSource source);
@@ -107,25 +105,6 @@ public:
     Json value;
 };
 
-class FileResponse : public Response
-{
-public:
-    FileResponse(
-        Path pathVal,
-        FileHandle handleVal,
-        FileInfo infoVal,
-        std::string contentTypeVal);
-
-    ~FileResponse() override;
-
-    void process(ResponseHandler* handler) override;
-
-    const Path path;
-    FileHandle handle;
-    const FileInfo info;
-    const std::string contentType;
-};
-
 class EventStreamResponse : public Response
 {
 public:
@@ -173,7 +152,6 @@ class ResponseHandler
 public:
     virtual void handleResponse(SimpleResponse*) = 0;
     virtual void handleResponse(DataResponse*) = 0;
-    virtual void handleResponse(FileResponse*) = 0;
     virtual void handleResponse(JsonResponse*) = 0;
     virtual void handleResponse(ErrorResponse*) = 0;
     virtual void handleResponse(AsyncResponse*) = 0;

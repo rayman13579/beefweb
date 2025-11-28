@@ -5,7 +5,6 @@ set(
     RUNNER_SOURCES
     runner.cpp
     test_main.hpp
-    base64_tests.cpp
     fnv_hash_tests.cpp
     parsing_tests.cpp
     router_tests.cpp

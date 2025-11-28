@@ -33,12 +33,6 @@ std::unique_ptr<SimpleResponse> Response::permanentRedirect(std::string targetUr
     return response;
 }
 
-std::unique_ptr<FileResponse> Response::file(Path path, FileHandle handle, FileInfo fileInfo, std::string contentType)
-{
-    return std::make_unique<FileResponse>(
-        std::move(path), std::move(handle), std::move(fileInfo), std::move(contentType));
-}
-
 std::unique_ptr<DataResponse> Response::data(std::vector<uint8_t> data, std::string contentType)
 {
     return std::make_unique<DataResponse>(std::move(data), std::move(contentType));
@@ -91,28 +85,6 @@ DataResponse::DataResponse(std::vector<uint8_t> dataVal, std::string contentType
 DataResponse::~DataResponse() = default;
 
 void DataResponse::process(ResponseHandler* handler)
-{
-    handler->handleResponse(this);
-}
-
-FileResponse::FileResponse(
-    Path pathVal,
-    FileHandle handleVal,
-    FileInfo infoVal,
-    std::string contentTypeVal)
-    : Response(HttpStatus::S_200_OK),
-      path(std::move(pathVal)),
-      handle(std::move(handleVal)),
-      info(std::move(infoVal)),
-      contentType(std::move(contentTypeVal))
-{
-}
-
-FileResponse::~FileResponse()
-{
-}
-
-void FileResponse::process(ResponseHandler* handler)
 {
     handler->handleResponse(this);
 }

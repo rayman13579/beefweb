@@ -26,46 +26,19 @@ inline bool matchHeader(
 }
 
 ContentTypeMap::ContentTypeMap()
-    : defaultType_(ContentType::APPLICATION_OCTET_STREAM),
-      jpegType_(ContentType::IMAGE_JPEG),
-      pngType_(ContentType::IMAGE_PNG),
-      gifType_(ContentType::IMAGE_GIF),
-      bmpType_(ContentType::IMAGE_BMP)
+    : defaultType_(ContentType::APPLICATION_OCTET_STREAM)
 {
     add(ContentType::TEXT_HTML_UTF8, "htm", "html");
     add(ContentType::TEXT_PLAIN_UTF8, "txt");
     add(ContentType::TEXT_CSS, "css");
     add(ContentType::APPLICATION_JAVASCRIPT, "js");
     add(ContentType::APPLICATION_JSON, "json");
-    add(ContentType::IMAGE_JPEG, "jpg", "jpeg");
-    add(ContentType::IMAGE_PNG, "png");
-    add(ContentType::IMAGE_GIF, "gif");
-    add(ContentType::IMAGE_BMP, "bmp");
-    add(ContentType::IMAGE_SVG, "svg");
 }
 
 ContentTypeMap::~ContentTypeMap() = default;
 
-const std::string& ContentTypeMap::byFilePath(const Path& path) const
-{
-    auto iter = mapping_.find(path.extension().native());
-    return iter != mapping_.end() ? iter->second : defaultType_;
-}
-
 const std::string& ContentTypeMap::byHeader(const std::vector<uint8_t>& header) const
 {
-    if (matchHeader(header, JPEG_HEADER, sizeof(JPEG_HEADER)))
-        return jpegType_;
-
-    if (matchHeader(header, PNG_HEADER, sizeof(PNG_HEADER)))
-        return pngType_;
-
-    if (matchHeader(header, GIF_HEADER, sizeof(GIF_HEADER)))
-        return gifType_;
-
-    if (matchHeader(header, BMP_HEADER, sizeof(BMP_HEADER)))
-        return bmpType_;
-
     return defaultType_;
 }
 

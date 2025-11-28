@@ -1,7 +1,6 @@
 #pragma once
 
 #include "common.hpp"
-#include "../settings.hpp"
 
 #include <string>
 #include <vector>
@@ -17,8 +16,6 @@ extern cfg_string authPassword;
 extern cfg_bool allowChangePlaylists;
 extern cfg_bool allowChangeOutput;
 extern cfg_bool allowChangeClientConfig;
-
-ApiPermissions getPermissions();
 
 std::vector<std::string> getMusicDirs();
 

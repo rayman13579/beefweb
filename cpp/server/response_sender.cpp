@@ -43,15 +43,6 @@ void ResponseSender::handleResponse(DataResponse* response)
     responseCore_->body = std::move(response->data);
 }
 
-void ResponseSender::handleResponse(FileResponse* response)
-{
-    setHeader(HttpHeader::CONTENT_TYPE, response->contentType);
-    setHeader(HttpHeader::CONTENT_LENGTH, toString(response->info.size));
-
-    responseCore_->body = ResponseCore::FileBody(
-        std::move(response->handle), response->info.size);
-}
-
 void ResponseSender::handleResponse(JsonResponse* response)
 {
     setJsonBody(response->value);

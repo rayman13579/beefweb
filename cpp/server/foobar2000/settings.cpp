@@ -48,22 +48,6 @@ cfg_bool allowChangePlaylists(allowChangePlaylistsGuid, true);
 cfg_bool allowChangeOutput(allowChangeOutputGuid, true);
 cfg_bool allowChangeClientConfig(allowChangeClientConfigGuid, true);
 
-ApiPermissions getPermissions()
-{
-    auto result = ApiPermissions::NONE;
-
-    if (allowChangePlaylists)
-        result |= ApiPermissions::CHANGE_PLAYLISTS;
-
-    if (allowChangeOutput)
-        result |= ApiPermissions::CHANGE_OUTPUT;
-
-    if (allowChangeClientConfig)
-        result |= ApiPermissions::CHANGE_CLIENT_CONFIG;
-
-    return result;
-}
-
 std::vector<std::string> getMusicDirs()
 {
     StringView dirs(musicDirs.get_ptr(), musicDirs.get_length());

@@ -22,32 +22,10 @@ Plugin::~Plugin()
     current_ = nullptr;
 }
 
-Path Plugin::getProfileDir()
-{
-    const char* path = core_api::get_profile_path();
-
-    if (strncmp(path, "file://", 7) == 0)
-        path = path + 7;
-
-    return pathFromUtf8(path);
-}
-
 void Plugin::reconfigure()
 {
     tryCatchLog([&] {
-        auto settings = std::make_shared<SettingsData>();
-
-        settings->port = settings_store::port;
-        settings->allowRemote = settings_store::allowRemote;
-        settings->musicDirsOrig = settings_store::getMusicDirs();
-        settings->authRequired = settings_store::authRequired;
-        settings->authUser = settings_store::authUser;
-        settings->authPassword = settings_store::authPassword;
-        settings->permissions = settings_store::getPermissions();
-
-        settings->initialize(getProfileDir());
-
-        host_.reconfigure(std::move(settings));
+        host_.reconfigure();
     });
 }
 
@@ -61,7 +39,6 @@ public:
     void on_init() override
     {
         Logger::setCurrent(&logger_);
-        SettingsData::migrate(MSRV_PLAYER_FOOBAR2000, Plugin::getProfileDir());
         tryCatchLog([this] { plugin_ = std::make_unique<Plugin>(); });
     }
 

@@ -14,8 +14,8 @@ constexpr char PLAYER_KEY[] = "player";
 }
 
 QueryController::QueryController(
-    Request* request, Player* player, EventDispatcher* dispatcher, SettingsDataPtr settings)
-    : ControllerBase(request), player_(player), dispatcher_(dispatcher), settings_(std::move(settings))
+    Request* request, Player* player, EventDispatcher* dispatcher)
+    : ControllerBase(request), player_(player), dispatcher_(dispatcher)
 {
 }
 
@@ -34,8 +34,9 @@ ResponsePtr QueryController::getUpdates()
 
 void QueryController::createQueries(PlayerEvents events)
 {
-    if (auto columns = optionalParam<std::vector<std::string>>("trcolumns"))
+    if (auto columns = optionalParam<std::vector<std::string>>("trcolumns")) {
         activeItemQuery_ = player_->createColumnsQuery(*columns);
+    }
 }
 
 void QueryController::listenForEvents(PlayerEvents events)
@@ -54,20 +55,18 @@ Json QueryController::eventsToJson(PlayerEvents events)
 Json QueryController::stateToJson(PlayerEvents events)
 {
     Json obj = Json::object();
-
     Json state(*player_->queryPlayerState(activeItemQuery_.get()));
-    state["permissions"] = settings_->permissions;
     obj[PLAYER_KEY] = state;
 
     return obj;
 }
 
 void QueryController::defineRoutes(
-    Router* router, WorkQueue* workQueue, Player* player, EventDispatcher* dispatcher, SettingsDataPtr settings)
+    Router* router, WorkQueue* workQueue, Player* player, EventDispatcher* dispatcher)
 {
     auto routes = router->defineRoutes<QueryController>();
 
-    routes.createWith([=](Request* request) { return new QueryController(request, player, dispatcher, settings); });
+    routes.createWith([=](Request* request) { return new QueryController(request, player, dispatcher); });
     routes.useWorkQueue(workQueue);
     routes.setPrefix("api/query");
 

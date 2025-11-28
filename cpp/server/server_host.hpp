@@ -6,7 +6,6 @@
 #include "player_events.hpp"
 #include "server_thread.hpp"
 #include "router.hpp"
-#include "settings.hpp"
 #include "work_queue.hpp"
 #include "request_filter.hpp"
 
@@ -20,7 +19,7 @@ public:
     explicit ServerHost(Player* player);
     virtual ~ServerHost();
 
-    void reconfigure(SettingsDataPtr settings);
+    void reconfigure();
 
 private:
     void handlePlayerEvents(PlayerEvents events);

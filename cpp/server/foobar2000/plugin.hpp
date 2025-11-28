@@ -4,7 +4,6 @@
 #include "player.hpp"
 #include "utils.hpp"
 
-#include "../settings.hpp"
 #include "../server_host.hpp"
 
 namespace msrv::player_foobar2000 {
@@ -21,8 +20,6 @@ public:
     ~Plugin();
 
     void reconfigure();
-
-    static Path getProfileDir();
 
 private:
     static Plugin* current_;

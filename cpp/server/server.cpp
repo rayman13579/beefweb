@@ -5,8 +5,8 @@
 
 namespace msrv {
 
-ServerConfig::ServerConfig(int portVal, bool allowRemoteVal)
-    : port(portVal), allowRemote(allowRemoteVal)
+ServerConfig::ServerConfig()
+    : port(8880), allowRemote(true)
 {
 }
 

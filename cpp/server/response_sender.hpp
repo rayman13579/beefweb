@@ -28,7 +28,6 @@ private:
 
     virtual void handleResponse(SimpleResponse*) override;
     virtual void handleResponse(DataResponse*) override;
-    virtual void handleResponse(FileResponse*) override;
     virtual void handleResponse(JsonResponse*) override;
     virtual void handleResponse(ErrorResponse*) override;
     virtual void handleResponse(EventStreamResponse*) override;

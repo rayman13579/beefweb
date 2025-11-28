@@ -86,7 +86,7 @@ INT_PTR MainPrefsPageInstance::handleNotify(NMHDR* data)
         break;
 
     case IDC_LINK_3RD_PARTY_LICENSES:
-        shellExecute((SettingsData::getDefaultWebRoot() / MSRV_PATH_LITERAL(MSRV_WEBUI_LICENSES_FILE)).c_str());
+        shellExecute((MSRV_PATH_LITERAL(MSRV_WEBUI_LICENSES_FILE)).c_str());
         break;
 
     case IDC_LINK_API_DOCS:

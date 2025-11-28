@@ -32,7 +32,7 @@ using RequestContextPtr = std::shared_ptr<RequestContext>;
 class ServerConfig
 {
 public:
-    ServerConfig(int portVal, bool allowRemoteVal);
+    ServerConfig();
     ~ServerConfig();
 
     const int port;

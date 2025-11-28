@@ -30,13 +30,6 @@ local_library_option(nljson         ENABLE_LOCAL_NLJSON "")
 local_library_option(catch          ENABLE_LOCAL_CATCH "ENABLE_TESTS")
 local_library_option(stringencoders ENABLE_LOCAL_STRINGENCODERS "")
 
-if(OS_POSIX)
-    option(ENABLE_DEADBEEF              "Build plugin for deadbeef player" ON)
-    option(ENABLE_DEADBEEF_SINGLE_DIR   "Install into single directory (no 'lib/deadbeef' prefix in paths)" ON)
-
-    local_library_option(deadbeef ENABLE_LOCAL_DEADBEEF "ENABLE_DEADBEEF")
-endif()
-
 if(OS_WINDOWS)
     option(ENABLE_FOOBAR2000 "Build plugin for foobar2000 player" ON)
 
@@ -51,12 +44,6 @@ if(ENABLE_GIT_REV)
     detect_git_revision(PROJECT_GIT_REV)
 else()
     set(PROJECT_GIT_REV unknown)
-endif()
-
-if(ENABLE_DEADBEEF_SINGLE_DIR)
-    set(DEADBEEF_LIB_DIR ".")
-else()
-    set(DEADBEEF_LIB_DIR "lib/deadbeef")
 endif()
 
 if(IS_MULTI_CONFIG)

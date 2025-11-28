@@ -75,17 +75,13 @@ set(
     CORE_SOURCES
     asio.hpp
     asio_adapters.cpp asio_adapters.hpp
-    base64.cpp base64.hpp
-    basic_auth_filter.cpp basic_auth_filter.hpp
     beast.hpp
     beast_connection.cpp beast_connection.hpp
     beast_listener.cpp beast_listener.hpp
     beast_request.cpp beast_request.hpp
     beast_server.cpp beast_server.hpp
-    cache_support_filter.cpp cache_support_filter.hpp
     charset.hpp
     chrono.hpp
-    compression_filter.cpp compression_filter.hpp
     content_type_map.cpp content_type_map.hpp
     core_types.hpp
     core_types_json.cpp core_types_json.hpp
@@ -107,31 +103,17 @@ set(
     request.cpp request.hpp
     request_filter.cpp request_filter.hpp
     response.cpp response.hpp
-    response_headers_filter.cpp response_headers_filter.hpp
     response_sender.cpp response_sender.hpp
     router.cpp router.hpp
     server.cpp server.hpp
     server_core.hpp
     server_host.cpp server_host.hpp
     server_thread.cpp server_thread.hpp
-    settings.cpp settings.hpp
     string_utils.cpp string_utils.hpp
     system.cpp system.hpp
     timers.cpp timers.hpp
     work_queue.cpp work_queue.hpp
 )
-
-if(OS_POSIX)
-    set(
-        CORE_SOURCES
-        ${CORE_SOURCES}
-        charset_posix.cpp
-        file_system_posix.cpp
-        system_posix.cpp
-    )
-
-    set(SYSTEM_LIBRARIES "dl;rt;m")
-endif()
 
 if(OS_WINDOWS)
     set(
@@ -153,10 +135,6 @@ set(
 
 add_library(core OBJECT ${CORE_SOURCES})
 add_dependencies(core ext_all)
-
-if(ENABLE_DEADBEEF)
-    add_subdirectory(deadbeef)
-endif()
 
 if(ENABLE_FOOBAR2000)
     add_subdirectory(foobar2000)

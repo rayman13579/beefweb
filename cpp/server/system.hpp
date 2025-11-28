@@ -4,11 +4,6 @@
 
 #include <stdint.h>
 
-#if MSRV_OS_POSIX
-#include "env_info.hpp"
-#include <pthread.h>
-#endif
-
 #include <stdexcept>
 #include <type_traits>
 #include <vector>
@@ -90,53 +85,10 @@ private:
     Type value_;
 };
 
-#if MSRV_OS_POSIX
-
-#define MSRV_THREAD_NAME(s) MSRV_PROJECT_ID "-" s
-
-typedef const char* ThreadName;
-
-inline void setThreadName(ThreadName name)
-{
-#if defined(HAVE_PTHREAD_SETNAME_NP)
-    (void) pthread_setname_np(pthread_self(), name);
-#elif defined(HAVE_PTHREAD_SET_NAME_NP)
-    (void) pthread_set_name_np(pthread_self(), name);
-#else
-    (void)name;
-#endif
-}
-
-struct PosixHandleTraits
-{
-    using Type = int;
-
-    static constexpr Type INVALID_VALUE = -1;
-
-    static bool isValid(Type value) noexcept
-    {
-        return value >= 0;
-    }
-
-    static void destroy(Type value) noexcept;
-};
-
-using SocketHandle = Handle<PosixHandleTraits>;
-using FileHandle = Handle<PosixHandleTraits>;
-using ErrorCode = int;
-
-inline ErrorCode lastSystemError() noexcept
-{
-    return errno;
-}
-
-#endif
-
-#if MSRV_OS_WINDOWS
-
 #define MSRV_THREAD_NAME__(s) L ## s
 #define MSRV_THREAD_NAME_(s) MSRV_THREAD_NAME__(s)
-#define MSRV_THREAD_NAME(s) MSRV_THREAD_NAME_(MSRV_PROJECT_ID "-" s)
+//TODO try to fix project name variable
+#define MSRV_THREAD_NAME(s) MSRV_THREAD_NAME_("beefweb-" s)
 
 typedef const wchar_t* ThreadName;
 
@@ -157,8 +109,6 @@ using FileHandle = WindowsHandle;
 using ErrorCode = uint32_t;
 
 ErrorCode lastSystemError() noexcept;
-
-#endif
 
 const char* formatError(ErrorCode errorCode, char* buffer, size_t size) noexcept;
 std::string formatError(ErrorCode errorCode);
