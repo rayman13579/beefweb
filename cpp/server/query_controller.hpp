@@ -22,7 +22,6 @@ public:
         Router* router, WorkQueue* workQueue, Player* player, EventDispatcher* dispatcher);
 
 private:
-    void createQueries(PlayerEvents events);
     void listenForEvents(PlayerEvents events);
 
     static Json eventsToJson(PlayerEvents events);
@@ -32,7 +31,6 @@ private:
     EventDispatcher* dispatcher_;
 
     std::unique_ptr<EventListener> listener_;
-    ColumnsQueryPtr activeItemQuery_;
     ColumnsQueryPtr queueQuery_;
 };
 

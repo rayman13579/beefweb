@@ -28,7 +28,7 @@ public:
     const char* name() override;
     std::unique_ptr<WorkQueue> createWorkQueue() override;
 
-    PlayerStatePtr queryPlayerState(ColumnsQuery* activeItemQuery = nullptr) override;
+    PlayerStatePtr queryPlayerState() override;
 
     void playCurrent() override;
     void playRandom() override;
@@ -42,13 +42,12 @@ public:
     void seekAbsolute(double offsetSeconds) override;
     void seekRelative(double offsetSeconds) override;
 
-    ColumnsQueryPtr createColumnsQuery(const std::vector<std::string>& columns) override;
-
 private:
     PlaybackState getPlaybackState();
-    void queryActiveItem(ActiveItemInfo* info, ColumnsQuery* query);
+    void queryActiveItem(ActiveItemInfo* info);
 
-    TitleFormatVector compileColumns(const std::vector<std::string>& columns);
+    ColumnsQueryPtr createColumnsQuery() override;
+    TitleFormatVector compileColumns();
 
     std::vector<std::string> evaluatePlaybackColumns(
         const TitleFormatVector& compiledColumns);

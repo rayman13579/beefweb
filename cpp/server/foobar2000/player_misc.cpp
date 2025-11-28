@@ -26,13 +26,14 @@ std::unique_ptr<WorkQueue> PlayerImpl::createWorkQueue()
     return std::make_unique<Fb2kWorkQueue>();
 }
 
-ColumnsQueryPtr PlayerImpl::createColumnsQuery(const std::vector<std::string>& columns)
+ColumnsQueryPtr PlayerImpl::createColumnsQuery()
 {
-    return std::make_unique<ColumnsQueryImpl>(compileColumns(columns));
+    return std::make_unique<ColumnsQueryImpl>(compileColumns());
 }
 
-TitleFormatVector PlayerImpl::compileColumns(const std::vector<std::string>& columns)
+TitleFormatVector PlayerImpl::compileColumns()
 {
+    std::vector<std::string> columns = {"%artist%", "%title%"};
     TitleFormatVector compiledColumns;
     compiledColumns.reserve(columns.size());
 

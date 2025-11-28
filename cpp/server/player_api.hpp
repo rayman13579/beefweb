@@ -32,9 +32,10 @@ enum class PlayerEvents : int
 MSRV_ENUM_FLAGS(PlayerEvents, int);
 
 struct ActiveItemInfo {
+    std::string artist;
+    std::string title;
     double position;
     double duration;
-    std::vector<std::string> columns;
 };
 
 struct PlayerState {
@@ -66,7 +67,7 @@ public:
 
     // Player control and query API
 
-    virtual PlayerStatePtr queryPlayerState(ColumnsQuery* activeItemQuery) = 0;
+    virtual PlayerStatePtr queryPlayerState() = 0;
     virtual void playCurrent() = 0;
     virtual void playRandom() = 0;
     virtual void playNext() = 0;
@@ -79,7 +80,7 @@ public:
     virtual void seekAbsolute(double offsetSeconds) = 0;
     virtual void seekRelative(double offsetSeconds) = 0;
 
-    virtual ColumnsQueryPtr createColumnsQuery(const std::vector<std::string>& columns) = 0;
+    virtual ColumnsQueryPtr createColumnsQuery() = 0;
 
     // Events API
 

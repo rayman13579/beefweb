@@ -23,19 +23,11 @@ QueryController::~QueryController() = default;
 ResponsePtr QueryController::getUpdates()
 {
     auto mask = PlayerEvents::PLAYER_CHANGED;
-    createQueries(mask);
     listenForEvents(mask);
 
     return Response::eventStream([this] {
         return stateToJson(listener_->readEvents());
     });
-}
-
-void QueryController::createQueries(PlayerEvents events)
-{
-    if (auto columns = optionalParam<std::vector<std::string>>("trcolumns")) {
-        activeItemQuery_ = player_->createColumnsQuery(*columns);
-    }
 }
 
 void QueryController::listenForEvents(PlayerEvents events)
@@ -54,7 +46,7 @@ Json QueryController::eventsToJson(PlayerEvents events)
 Json QueryController::stateToJson(PlayerEvents events)
 {
     Json obj = Json::object();
-    Json state(*player_->queryPlayerState(activeItemQuery_.get()));
+    Json state(*player_->queryPlayerState());
     obj[PLAYER_KEY] = state;
 
     return obj;

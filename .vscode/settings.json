@@ -6,6 +6,7 @@
         "xlocinfo": "cpp",
         "iosfwd": "cpp",
         "xlocbuf": "cpp",
-        "memory": "cpp"
+        "memory": "cpp",
+        "atomic": "cpp"
     }
 }

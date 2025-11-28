@@ -52,24 +52,27 @@ PlaybackState PlayerImpl::getPlaybackState()
     return PlaybackState::STOPPED;
 }
 
-void PlayerImpl::queryActiveItem(ActiveItemInfo* info, ColumnsQuery* query)
+void PlayerImpl::queryActiveItem(ActiveItemInfo* info)
 {
     info->position = playbackControl_->playback_get_position();
     info->duration = playbackControl_->playback_get_length_ex();
 
-    if (auto queryImpl = dynamic_cast<ColumnsQueryImpl*>(query))
+    ColumnsQueryPtr query = createColumnsQuery();
+    if (auto queryImpl = dynamic_cast<ColumnsQueryImpl*>(query.get()))
     {
-        info->columns = evaluatePlaybackColumns(queryImpl->columns);
+        std::vector<std::string> columns = evaluatePlaybackColumns(queryImpl->columns);
+        info->artist = columns[0];
+        info->title = columns[1];
     }
 }
 
-PlayerStatePtr PlayerImpl::queryPlayerState(ColumnsQuery* activeItemQuery)
+PlayerStatePtr PlayerImpl::queryPlayerState()
 {
 
     auto state = std::make_unique<PlayerState>();
 
     state->playbackState = getPlaybackState();
-    queryActiveItem(&state->activeItem, activeItemQuery);
+    queryActiveItem(&state->activeItem);
 
     return state;
 }

@@ -32,9 +32,10 @@ void to_json(Json& json, const PlaybackState& value)
 
 void to_json(Json& json, const ActiveItemInfo& value)
 {
+    json["artist"] = value.artist;
+    json["title"] = value.title;
     json["position"] = value.position;
     json["duration"] = value.duration;
-    json["columns"] = value.columns;
 }
 
 void to_json(Json& json, const PlayerState& value)
