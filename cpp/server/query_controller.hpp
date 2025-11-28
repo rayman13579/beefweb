@@ -33,9 +33,6 @@ private:
 
     std::unique_ptr<EventListener> listener_;
     ColumnsQueryPtr activeItemQuery_;
-    PlaylistRef playlistRef_;
-    Range playlistRange_;
-    ColumnsQueryPtr playlistQuery_;
     ColumnsQueryPtr queueQuery_;
 };
 

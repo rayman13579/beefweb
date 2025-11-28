@@ -5,6 +5,7 @@
         "filesystem": "cpp",
         "xlocinfo": "cpp",
         "iosfwd": "cpp",
-        "xlocbuf": "cpp"
+        "xlocbuf": "cpp",
+        "memory": "cpp"
     }
 }

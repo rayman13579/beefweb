@@ -30,7 +30,6 @@ ContentTypeMap::ContentTypeMap()
 {
     add(ContentType::TEXT_HTML_UTF8, "htm", "html");
     add(ContentType::TEXT_PLAIN_UTF8, "txt");
-    add(ContentType::TEXT_CSS, "css");
     add(ContentType::APPLICATION_JAVASCRIPT, "js");
     add(ContentType::APPLICATION_JSON, "json");
 }

@@ -97,7 +97,6 @@ set(
     parsing.cpp parsing.hpp
     player_api.hpp
     player_api_json.cpp player_api_json.hpp
-    player_api_parsers.cpp player_api_parsers.hpp
     player_events.cpp player_events.hpp
     query_controller.cpp query_controller.hpp
     request.cpp request.hpp

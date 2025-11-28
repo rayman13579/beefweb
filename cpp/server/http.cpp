@@ -8,20 +8,6 @@ const char HttpHeader::CONTENT_TYPE[] = "Content-Type";
 
 const char HttpHeader::CONTENT_LENGTH[] = "Content-Length";
 
-const char HttpHeader::AUTHORIZATION[] = "Authorization";
-
-const char HttpHeader::WWW_AUTHENTICATE[] = "Www-Authenticate";
-
-const char HttpHeader::IF_NONE_MATCH[] = "If-None-Match";
-
-const char HttpHeader::ETAG[] = "ETag";
-
-const char HttpHeader::CACHE_CONTROL[] = "Cache-Control";
-
-const char HttpHeader::ACCEPT_ENCODING[] = "Accept-Encoding";
-
-const char HttpHeader::CONTENT_ENCODING[] = "Content-Encoding";
-
 const char HttpHeader::LOCATION[] = "Location";
 
 const char ContentType::APPLICATION_OCTET_STREAM[] = "application/octet-stream";
@@ -33,18 +19,6 @@ const char ContentType::APPLICATION_JAVASCRIPT[] = "application/javascript";
 const char ContentType::TEXT_PLAIN_UTF8[] = "text/plain; charset=utf-8";
 
 const char ContentType::TEXT_HTML_UTF8[] = "text/html; charset=utf-8";
-
-const char ContentType::TEXT_CSS[] = "text/css";
-
-const char ContentType::IMAGE_SVG[] = "image/svg+xml";
-
-const char ContentType::IMAGE_JPEG[] = "image/jpeg";
-
-const char ContentType::IMAGE_PNG[] = "image/png";
-
-const char ContentType::IMAGE_GIF[] = "image/gif";
-
-const char ContentType::IMAGE_BMP[] = "image/bmp";
 
 std::string toString(HttpMethod method)
 {

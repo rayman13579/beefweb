@@ -62,8 +62,6 @@ std::string doubleGuidToString(const GUID& guid1, const GUID& guid2)
     return result;
 }
 
-service_factory_single_t<PlayQueueEventAdapter> playQueueEventAdapterFactory;
-
 Fb2kLogger::Fb2kLogger()
     : prefix_(MSRV_PROJECT_ID ": ")
 {
