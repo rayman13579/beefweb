@@ -23,14 +23,6 @@ enum class PlaybackState
     PAUSED,
 };
 
-enum class PlayerEvents : int
-{
-    NONE = 0,
-    PLAYER_CHANGED = 1 << 0
-};
-
-MSRV_ENUM_FLAGS(PlayerEvents, int);
-
 struct ActiveItemInfo {
     std::string artist;
     std::string title;
@@ -54,7 +46,7 @@ public:
 
 using PlayerStatePtr = std::unique_ptr<PlayerState>;
 using ColumnsQueryPtr = std::unique_ptr<ColumnsQuery>;
-using PlayerEventsCallback = std::function<void(PlayerEvents)>;
+using PlayerEventsCallback = std::function<void()>;
 
 class Player
 {
@@ -90,10 +82,10 @@ public:
     }
 
 protected:
-    void emitEvents(PlayerEvents events)
+    void emitEvents()
     {
-        if (events != PlayerEvents::NONE && eventsCallback_)
-            eventsCallback_(events);
+        if (eventsCallback_)
+            eventsCallback_();
     }
 
 private:

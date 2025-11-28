@@ -4,9 +4,9 @@
 
 namespace msrv {
 
-std::unique_ptr<EventListener> EventDispatcher::createListener(PlayerEvents eventMask)
+std::unique_ptr<EventListener> EventDispatcher::createListener()
 {
-    std::unique_ptr<EventListener> listener(new EventListener(eventMask));
+    std::unique_ptr<EventListener> listener(new EventListener());
 
     {
         std::lock_guard<std::mutex> lock(mutex_);
@@ -17,23 +17,18 @@ std::unique_ptr<EventListener> EventDispatcher::createListener(PlayerEvents even
     return listener;
 }
 
-void EventDispatcher::dispatch(PlayerEvents events)
+void EventDispatcher::dispatch()
 {
     std::lock_guard<std::mutex> lock(mutex_);
 
     for (auto listener : listeners_)
     {
-        auto maskedEvents = listener->eventMask_ & events;
-
-        if (maskedEvents != PlayerEvents::NONE)
-        {
-            listener->pendingEvents_.fetch_or(static_cast<int>(maskedEvents));
-        }
+        listener->pendingEvent_.store(true);
     }
 }
 
-EventListener::EventListener(PlayerEvents eventMask)
-    : owner_(nullptr), eventMask_(eventMask), pendingEvents_(static_cast<int>(eventMask))
+EventListener::EventListener()
+    : owner_(nullptr), pendingEvent_(false)
 {
 }
 
@@ -49,9 +44,9 @@ EventListener::~EventListener()
     owner_->listeners_.erase(it);
 }
 
-PlayerEvents EventListener::readEvents()
+void EventListener::readEvents()
 {
-    return static_cast<PlayerEvents>(pendingEvents_.exchange(0));
+    pendingEvent_.exchange(false);
 }
 
 }

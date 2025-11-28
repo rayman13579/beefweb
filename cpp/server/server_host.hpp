@@ -22,7 +22,7 @@ public:
     void reconfigure();
 
 private:
-    void handlePlayerEvents(PlayerEvents events);
+    void handlePlayerEvents();
 
     Player* player_;
 

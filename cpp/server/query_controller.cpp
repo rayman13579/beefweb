@@ -22,20 +22,20 @@ QueryController::~QueryController() = default;
 
 ResponsePtr QueryController::getUpdates()
 {
-    auto mask = PlayerEvents::PLAYER_CHANGED;
-    listenForEvents(mask);
+    listenForEvents();
 
     return Response::eventStream([this] {
-        return stateToJson(listener_->readEvents());
+        listener_->readEvents();
+        return stateToJson();
     });
 }
 
-void QueryController::listenForEvents(PlayerEvents events)
+void QueryController::listenForEvents()
 {
-    listener_ = dispatcher_->createListener(events);
+    listener_ = dispatcher_->createListener();
 }
 
-Json QueryController::eventsToJson(PlayerEvents events)
+Json QueryController::eventsToJson()
 {
     Json obj = Json::object();
     obj[PLAYER_KEY] = true;
@@ -43,7 +43,7 @@ Json QueryController::eventsToJson(PlayerEvents events)
     return obj;
 }
 
-Json QueryController::stateToJson(PlayerEvents events)
+Json QueryController::stateToJson()
 {
     Json obj = Json::object();
     Json state(*player_->queryPlayerState());

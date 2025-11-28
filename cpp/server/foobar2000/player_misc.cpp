@@ -8,7 +8,7 @@ PlayerImpl::PlayerImpl()
     : playbackControl_(playback_control_v3::get()),
       titleFormatCompiler_(titleformat_compiler::get())
 {
-    auto callback = [this](PlayerEvents ev) { emitEvents(ev); };
+    auto callback = [this]() { emitEvents(); };
     playerEventAdapter_.setCallback(callback);
 }
 

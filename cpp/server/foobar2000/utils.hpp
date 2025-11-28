@@ -109,7 +109,7 @@ private:
     void notify()
     {
         if (callback_)
-            callback_(PlayerEvents::PLAYER_CHANGED);
+            callback_();
     }
 
     PlayerEventsCallback callback_;

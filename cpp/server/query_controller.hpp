@@ -22,10 +22,10 @@ public:
         Router* router, WorkQueue* workQueue, Player* player, EventDispatcher* dispatcher);
 
 private:
-    void listenForEvents(PlayerEvents events);
+    void listenForEvents();
 
-    static Json eventsToJson(PlayerEvents events);
-    Json stateToJson(PlayerEvents events);
+    static Json eventsToJson();
+    Json stateToJson();
 
     Player* player_;
     EventDispatcher* dispatcher_;

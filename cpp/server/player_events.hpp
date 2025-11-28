@@ -18,8 +18,8 @@ class EventDispatcher
 public:
     EventDispatcher() = default;
 
-    std::unique_ptr<EventListener> createListener(PlayerEvents eventMask);
-    void dispatch(PlayerEvents events);
+    std::unique_ptr<EventListener> createListener();
+    void dispatch();
 
 private:
     friend class EventListener;
@@ -34,16 +34,15 @@ class EventListener
 {
 public:
     ~EventListener();
-    PlayerEvents readEvents();
+    void readEvents();
 
 private:
     friend class EventDispatcher;
 
-    explicit EventListener(PlayerEvents eventMask);
+    explicit EventListener();
 
     EventDispatcher* owner_;
-    const PlayerEvents eventMask_;
-    std::atomic_int pendingEvents_;
+    std::atomic_bool pendingEvent_;
 
     MSRV_NO_COPY_AND_ASSIGN(EventListener);
 };

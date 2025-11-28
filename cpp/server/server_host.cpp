@@ -8,7 +8,7 @@ ServerHost::ServerHost(Player* player)
     : player_(player), utilityQueue_(8, MSRV_THREAD_NAME("io"))
 {
     playerWorkQueue_ = player_->createWorkQueue();
-    player_->onEvents([this](PlayerEvents event) { handlePlayerEvents(event); });
+    player_->onEvents([this]() { handlePlayerEvents(); });
     serverThread_ = std::make_unique<ServerThread>();
 }
 
@@ -17,9 +17,9 @@ ServerHost::~ServerHost()
     player_->onEvents(PlayerEventsCallback());
 }
 
-void ServerHost::handlePlayerEvents(PlayerEvents events)
+void ServerHost::handlePlayerEvents()
 {
-    dispatcher_.dispatch(events);
+    dispatcher_.dispatch();
     serverThread_->dispatchEvents();
 }
 
