@@ -87,7 +87,6 @@ private:
 
 #define MSRV_THREAD_NAME__(s) L ## s
 #define MSRV_THREAD_NAME_(s) MSRV_THREAD_NAME__(s)
-//TODO try to fix project name variable
 #define MSRV_THREAD_NAME(s) MSRV_THREAD_NAME_("beefweb-" s)
 
 typedef const wchar_t* ThreadName;

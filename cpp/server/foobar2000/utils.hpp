@@ -97,7 +97,6 @@ private:
 
     void on_playback_time(double p_time) override
     {
-        //TODO can I use this instead of countin myself?
         /* ignore */
     }
 

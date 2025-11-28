@@ -25,19 +25,6 @@ if(CXX_MSVC)
     add_definitions(-D_CRT_SECURE_NO_WARNINGS)
 endif()
 
-if(OS_POSIX)
-    add_definitions(-DMSRV_OS_POSIX=1)
-
-    add_linker_flag(-Wl,--no-undefined)
-    add_linker_flag(-Wl,--as-needed)
-
-    check_symbol_exists(pthread_setname_np "pthread.h" HAVE_PTHREAD_SETNAME_NP)
-
-    if(NOT HAVE_PTHREAD_SETNAME_NP)
-        check_symbol_exists(pthread_set_name_np "pthread.h" HAVE_PTHREAD_SET_NAME_NP)
-    endif()
-endif()
-
 if(OS_WINDOWS)
     set(WINVER 0x0601) # Windows 7
     add_definitions(

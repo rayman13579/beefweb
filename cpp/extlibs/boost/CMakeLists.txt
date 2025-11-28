@@ -61,30 +61,6 @@ set(
     install
 )
 
-if(OS_POSIX)
-    ExternalProject_Add(
-        ext_boost
-        PREFIX
-            ${EXTLIB_INSTALL_DIR}
-        URL
-            https://archives.boost.io/release/1.87.0/source/boost_1_87_0.tar.bz2
-        URL_HASH
-            SHA256=af57be25cb4c4f4b413ed692fe378affb4352ea50fbe294a11ef548f4d527d89
-        DOWNLOAD_DIR
-            ${EXTLIB_CACHE_DIR}/boost
-        BUILD_IN_SOURCE 1
-        PATCH_COMMAND
-            ${EXTLIB_PATCHER} boost
-        CONFIGURE_COMMAND
-            <SOURCE_DIR>/bootstrap.sh --with-toolset=${BOOST_TOOLSET}
-        BUILD_COMMAND
-            <SOURCE_DIR>/b2 ${B2_BUILD_ARGS}
-        INSTALL_COMMAND
-            <SOURCE_DIR>/b2 ${B2_INSTALL_ARGS}
-        LOG_DOWNLOAD 1 LOG_UPDATE 0 LOG_CONFIGURE 1 LOG_BUILD 1 LOG_INSTALL 1
-    )
-endif()
-
 if(OS_WINDOWS)
     ExternalProject_Add(
         ext_boost

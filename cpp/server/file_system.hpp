@@ -16,10 +16,6 @@ namespace fs = boost::filesystem;
 
 using Path = fs::path;
 
-#ifdef MSRV_OS_POSIX
-#define MSRV_PATH_LITERAL(str) Path(str)
-#endif
-
 #ifdef MSRV_OS_WINDOWS
 #define MSRV_PATH_LITERAL_(str) Path(L##str)
 #define MSRV_PATH_LITERAL(str) MSRV_PATH_LITERAL_(str)
@@ -42,9 +38,6 @@ struct FileInfo
 
 inline std::string pathToUtf8(const Path& path)
 {
-#ifdef MSRV_OS_POSIX
-    return localeToUtf8(path.native());
-#endif
 
 #ifdef MSRV_OS_WINDOWS
     return utf16To8(path.native());
@@ -53,9 +46,6 @@ inline std::string pathToUtf8(const Path& path)
 
 inline Path pathFromUtf8(const std::string& path)
 {
-#ifdef MSRV_OS_POSIX
-    return Path(utf8ToLocale(path));
-#endif
 
 #ifdef MSRV_OS_WINDOWS
     return Path(utf8To16(path));
