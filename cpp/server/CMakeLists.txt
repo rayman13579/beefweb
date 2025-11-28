@@ -73,7 +73,6 @@ include_directories(
 
 set(
     CORE_SOURCES
-    artwork_controller.cpp artwork_controller.hpp
     asio.hpp
     asio_adapters.cpp asio_adapters.hpp
     base64.cpp base64.hpp
@@ -83,11 +82,9 @@ set(
     beast_listener.cpp beast_listener.hpp
     beast_request.cpp beast_request.hpp
     beast_server.cpp beast_server.hpp
-    browser_controller.cpp browser_controller.hpp
     cache_support_filter.cpp cache_support_filter.hpp
     charset.hpp
     chrono.hpp
-    client_config_controller.cpp client_config_controller.hpp
     compression_filter.cpp compression_filter.hpp
     content_type_map.cpp content_type_map.hpp
     core_types.hpp
@@ -101,16 +98,11 @@ set(
     http.cpp http.hpp
     json.hpp
     log.cpp log.hpp
-    outputs_controller.cpp outputs_controller.hpp
     parsing.cpp parsing.hpp
-    play_queue_controller.cpp
-    play_queue_controller.hpp
     player_api.hpp
     player_api_json.cpp player_api_json.hpp
     player_api_parsers.cpp player_api_parsers.hpp
-    player_controller.cpp player_controller.hpp
     player_events.cpp player_events.hpp
-    playlists_controller.cpp playlists_controller.hpp
     query_controller.cpp query_controller.hpp
     request.cpp request.hpp
     request_filter.cpp request_filter.hpp
@@ -123,7 +115,6 @@ set(
     server_host.cpp server_host.hpp
     server_thread.cpp server_thread.hpp
     settings.cpp settings.hpp
-    static_controller.cpp static_controller.hpp
     string_utils.cpp string_utils.hpp
     system.cpp system.hpp
     timers.cpp timers.hpp

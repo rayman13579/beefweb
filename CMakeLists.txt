@@ -24,7 +24,6 @@ option(ENABLE_GIT_REV           "Include Git revision in produced binaries" OFF)
 option(ENABLE_WERROR            "Treat warnings as errors" OFF)
 option(ENABLE_LOCAL_LIBS        "Build with local libraries" ON)
 option(ENABLE_STATIC_STDLIB     "Build with static libstdc++" OFF)
-option(ENABLE_JS                "Build JS parts" ON)
 
 local_library_option(boost          ENABLE_LOCAL_BOOST "")
 local_library_option(nljson         ENABLE_LOCAL_NLJSON "")
@@ -67,10 +66,6 @@ else()
 endif()
 
 add_subdirectory(cpp)
-
-if(ENABLE_JS)
-    add_subdirectory(js)
-endif()
 
 include(Packages)
 include(CPack)

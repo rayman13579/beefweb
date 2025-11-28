@@ -1,7 +1,7 @@
 #pragma once
 
-#include "defines.hpp"
 #include "controller.hpp"
+#include "defines.hpp"
 #include "player_events.hpp"
 #include "settings.hpp"
 
@@ -17,15 +17,12 @@ public:
     QueryController(Request* request, Player* player, EventDispatcher* dispatcher, SettingsDataPtr settings);
     ~QueryController();
 
-    ResponsePtr query();
-    ResponsePtr getEvents();
     ResponsePtr getUpdates();
 
     static void defineRoutes(
         Router* router, WorkQueue* workQueue, Player* player, EventDispatcher* dispatcher, SettingsDataPtr settings);
 
 private:
-    PlayerEvents readEventMask();
     void createQueries(PlayerEvents events);
     void listenForEvents(PlayerEvents events);
 

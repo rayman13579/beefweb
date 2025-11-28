@@ -1,17 +1,9 @@
 #include "server_host.hpp"
-#include "artwork_controller.hpp"
-#include "browser_controller.hpp"
-#include "static_controller.hpp"
-#include "play_queue_controller.hpp"
-#include "player_controller.hpp"
-#include "playlists_controller.hpp"
 #include "query_controller.hpp"
 #include "cache_support_filter.hpp"
 #include "compression_filter.hpp"
 #include "basic_auth_filter.hpp"
 #include "response_headers_filter.hpp"
-#include "client_config_controller.hpp"
-#include "outputs_controller.hpp"
 #include "log.hpp"
 
 namespace msrv {
@@ -55,16 +47,7 @@ void ServerHost::reconfigure(SettingsDataPtr settings)
 
     auto playerQueue = playerWorkQueue_.get();
 
-    PlayerController::defineRoutes(router, playerQueue, player_, settings);
-    PlaylistsController::defineRoutes(router, playerQueue, player_, settings);
-    PlayQueueController::defineRoutes(router, playerQueue, player_);
-    OutputsController::defineRoutes(router, playerQueue, player_, settings);
     QueryController::defineRoutes(router, playerQueue, player_, &dispatcher_, settings);
-    ArtworkController::defineRoutes(router, playerQueue, player_, contentTypes_);
-
-    BrowserController::defineRoutes(router, &utilityQueue_, settings);
-    StaticController::defineRoutes(router, &utilityQueue_, settings, contentTypes_);
-    ClientConfigController::defineRoutes(router, &utilityQueue_, settings);
 
     serverThread_->restart(std::move(config));
 }
