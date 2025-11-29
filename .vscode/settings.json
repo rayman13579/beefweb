@@ -8,6 +8,12 @@
         "xlocbuf": "cpp",
         "memory": "cpp",
         "atomic": "cpp",
-        "functional": "cpp"
+        "functional": "cpp",
+        "execution": "cpp",
+        "forward_list": "cpp",
+        "future": "cpp",
+        "list": "cpp",
+        "xhash": "cpp",
+        "xmemory": "cpp"
     }
 }
