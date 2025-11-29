@@ -2,7 +2,7 @@ project(voicemeeter LANGUAGES C CXX)
 
 set(VOICEMEETER_SOURCES
     VoicemeeterRemote.h
-    voicemeeter.c voicemeeter.h
+    voicemeeter.cpp voicemeeter.hpp
     voicemeeterClient.hpp voicemeeterClient.cpp
 )
 
