@@ -3,6 +3,7 @@
 #include "core_types_parsers.hpp"
 #include "player_api_json.hpp"
 #include "router.hpp"
+#include "windows.h"
 
 namespace msrv {
 
@@ -14,7 +15,7 @@ constexpr char PLAYER_KEY[] = "player";
 
 QueryController::QueryController(
     Request* request, Player* player, EventDispatcher* dispatcher)
-    : ControllerBase(request), player_(player), dispatcher_(dispatcher)
+    : ControllerBase(request), player_(player), dispatcher_(dispatcher), voicemeeterClient_(new VoicemeeterClient())
 {
 }
 
@@ -35,19 +36,14 @@ void QueryController::listenForEvents()
     listener_ = dispatcher_->createListener();
 }
 
-Json QueryController::eventsToJson()
-{
-    Json obj = Json::object();
-    obj[PLAYER_KEY] = true;
-
-    return obj;
-}
-
 Json QueryController::stateToJson()
 {
     Json obj = Json::object();
     Json state(*player_->queryPlayerState());
+    OutputDebugStringA("Getting muted state from VoicemeeterClient\n");
+    Json muted(voicemeeterClient_->getMuted());
     obj[PLAYER_KEY] = state;
+    obj["voicemeeter"] = muted;
 
     return obj;
 }

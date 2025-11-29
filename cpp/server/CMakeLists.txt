@@ -126,6 +126,7 @@ add_dependencies(core ext_all)
 if(ENABLE_FOOBAR2000)
     add_subdirectory(foobar2000)
 endif()
+add_subdirectory(voicemeeter)
 
 if(ENABLE_TESTS)
     add_subdirectory(tests)

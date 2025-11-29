@@ -39,6 +39,7 @@ add_library(
 
 target_link_libraries(
     foobar2000_plugin
+    voicemeeter
     "${CORE_LIBRARIES_FOOBAR2000};${FOOSDK_LIBRARIES};shlwapi.lib"
 )
 

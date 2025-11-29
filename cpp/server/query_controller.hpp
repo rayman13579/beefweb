@@ -3,6 +3,7 @@
 #include "controller.hpp"
 #include "defines.hpp"
 #include "player_events.hpp"
+#include "voicemeeter/voicemeeterClient.hpp"
 
 #include <memory>
 
@@ -24,11 +25,11 @@ public:
 private:
     void listenForEvents();
 
-    static Json eventsToJson();
     Json stateToJson();
 
     Player* player_;
     EventDispatcher* dispatcher_;
+    VoicemeeterClient* voicemeeterClient_;
 
     std::unique_ptr<EventListener> listener_;
     ColumnsQueryPtr queueQuery_;
